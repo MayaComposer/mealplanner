@@ -6,6 +6,8 @@ import { Pressable } from 'react-native';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Entypo from '@expo/vector-icons/Entypo';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -27,10 +29,10 @@ export default function TabLayout() {
         headerShown: useClientOnlyValue(false, true),
       }}>
       <Tabs.Screen
-        name="index"
+        name="recipes"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Recipes',
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="food-apple-outline" size={24} color={Colors[colorScheme ?? 'light'].tint}/>,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -48,10 +50,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="pantry"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Pantry',
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="cupboard-outline" size={24} color={Colors[colorScheme ?? 'light'].tint} />,
+        }}
+      />
+      <Tabs.Screen
+        name="mealplan"
+        options={{
+          title: 'Meal Plan',
+          tabBarIcon: ({ color }) => <Entypo name="open-book" size={24} color={Colors[colorScheme ?? 'light'].tint} />,
         }}
       />
     </Tabs>
