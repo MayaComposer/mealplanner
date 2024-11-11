@@ -12,7 +12,7 @@ export default function TabOneScreen() {
 
       <>
         
-        <Button title="Bleepbloop"/>
+        <Button title="Add new recipe"/>
       </>
     </View>
   );

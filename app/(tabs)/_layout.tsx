@@ -33,6 +33,13 @@ export default function TabLayout() {
         options={{
           title: 'Recipes',
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="food-apple-outline" size={24} color={Colors[colorScheme ?? 'light'].tint}/>,
+        }}
+      />
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Meal plan',
+          tabBarIcon: ({ color }) => <Entypo name="open-book" size={24} color={Colors[colorScheme ?? 'light'].tint} />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -46,7 +53,7 @@ export default function TabLayout() {
                 )}
               </Pressable>
             </Link>
-          ),
+          )
         }}
       />
       <Tabs.Screen
@@ -54,13 +61,6 @@ export default function TabLayout() {
         options={{
           title: 'Pantry',
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="cupboard-outline" size={24} color={Colors[colorScheme ?? 'light'].tint} />,
-        }}
-      />
-      <Tabs.Screen
-        name="mealplan"
-        options={{
-          title: 'Meal Plan',
-          tabBarIcon: ({ color }) => <Entypo name="open-book" size={24} color={Colors[colorScheme ?? 'light'].tint} />,
         }}
       />
     </Tabs>
