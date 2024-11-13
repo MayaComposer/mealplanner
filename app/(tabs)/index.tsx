@@ -3,63 +3,77 @@ import { StyleSheet, Button, FlatList } from 'react-native';
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 
-const recipes = [{
-  id: 0,
-  name: 'pasta',
-  instructions: 'dosmth',
-}, {
-  id: 1,
+export interface IUser {
+  id: string;
+  name: string; 
+  instructions: string;
+}
+
+const DATA = [
+  {
+    id: '0',
+    name: 'pasta',
+    instructions: 'dosmth',
+  }, 
+  {
+  id: '1',
   name: 'potatoes',
   instructions: 'dosmth',
-}, {
-  id: 2,
+  }, 
+  {
+  id: '2',
   name: 'lasagne',
   instructions: 'dosmth',
-}, {
-  id: 3,
+  }, 
+  {
+  id: '3',
   name: 'grateng',
   instructions: 'dosmth',  
-}, {
-  id: 4,
+  }, 
+  {
+  id: '4',
   name: 'soup',
   instructions: 'dosmth',
-}, {
-  id: 5,
+  }, 
+  {
+  id: '5',
   name: 'pizza',
   instructions: 'dosmth',  
-}, {
-  id: 7,
+  }, 
+  {
+  id: '7',
   name: 'curry',
   instructions: 'dosmth',  
-}, {
-  id: 8,
+  }, 
+  {
+  id: '8',
   name: 'sdfoisdf',
   instructions: 'dosmth',  
-}];
+}
+];
 
 
 
 export function GenerateNewMeal() {
 
   return (
-    <Meal/>
+    <Text>hi</Text>
   );
 
 };
 
-export function Meal() {
-  return (
-    <>
-      <Text></Text>
-      <View style={styles.separator}/>
-    </>
-  );
-}
+
+const Item = ({data}: {data: IUser}) => (
+  <View>
+    <Text>{data.name}</Text>
+  </View>
+);
+
+
+
 
 export default function TabTwoScreen() {
-  const listItems = recipes.map(recipe =>
-    <li>{recipe.name}</li>
-  );
+  
 
   return (
     <View style={styles.container}>
@@ -71,16 +85,12 @@ export default function TabTwoScreen() {
       
       <Button title="New meal plan"/>
       <View style={styles.separator}/>
-
       <FlatList
-        data={recipes}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text style={styles.itemText}>{item.name}</Text>
-          </View>
-        )}
+        data={DATA}
+        renderItem={({item}) => <Item data={item} />}
+        keyExtractor={(item: IUser) => item.id}
       />
+      
     </View>
   );
 }
