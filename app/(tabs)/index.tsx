@@ -1,96 +1,42 @@
+import React, { useState } from 'react';
 import { StyleSheet, Button, FlatList } from 'react-native';
-
-import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
+import { DATA, RecipeEntry } from '../data';
 
-export interface IUser {
-  id: string;
-  name: string; 
-  instructions: string;
-}
-
-const DATA = [
-  {
-    id: '0',
-    name: 'pasta',
-    instructions: 'dosmth',
-  }, 
-  {
-  id: '1',
-  name: 'potatoes',
-  instructions: 'dosmth',
-  }, 
-  {
-  id: '2',
-  name: 'lasagne',
-  instructions: 'dosmth',
-  }, 
-  {
-  id: '3',
-  name: 'grateng',
-  instructions: 'dosmth',  
-  }, 
-  {
-  id: '4',
-  name: 'soup',
-  instructions: 'dosmth',
-  }, 
-  {
-  id: '5',
-  name: 'pizza',
-  instructions: 'dosmth',  
-  }, 
-  {
-  id: '7',
-  name: 'curry',
-  instructions: 'dosmth',  
-  }, 
-  {
-  id: '8',
-  name: 'sdfoisdf',
-  instructions: 'dosmth',  
-}
-];
-
-
-
-export function GenerateNewMeal() {
-
-  return (
-    <Text>hi</Text>
-  );
-
+const shuffleArray = (array: RecipeEntry[]) => {
+  return array.sort(() => Math.random() - 0.5);
 };
 
-
-const Item = ({data}: {data: IUser}) => (
+const Item = ({ data }: { data: RecipeEntry }) => (
   <View>
     <Text>{data.name}</Text>
   </View>
 );
 
-
-
-
 export default function TabTwoScreen() {
-  
+  const [mealPlan, setMealPlan] = useState<RecipeEntry[]>([]);
+
+  const GenerateNewMeal = () => {
+    const shuffledData = shuffleArray([...DATA]);
+    const newMealPlan = shuffledData.slice(0, 7);
+    setMealPlan(newMealPlan);
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Meal plan</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <View style={styles.separator}/>
+      <View style={styles.separator} />
       <Text style={styles.title}>This is the meal plan for this week</Text>
-      <View style={styles.separator}/>
+      <View style={styles.separator} />
       
-      <Button title="New meal plan"/>
-      <View style={styles.separator}/>
+      <Button title="New meal plan" onPress={GenerateNewMeal} />
+      <View style={styles.separator} />
       <FlatList
-        data={DATA}
-        renderItem={({item}) => <Item data={item} />}
-        keyExtractor={(item: IUser) => item.id}
+        data={mealPlan}
+        renderItem={({ item }) => <Item data={item} />}
+        keyExtractor={(item: RecipeEntry) => item.id}
       />
-      
     </View>
   );
 }
