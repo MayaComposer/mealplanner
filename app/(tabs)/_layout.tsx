@@ -8,6 +8,7 @@ import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Entypo from '@expo/vector-icons/Entypo';
+import { RecipesProvider } from '../RecipesContext';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -21,18 +22,19 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
-      <Tabs.Screen
-        name="recipes"
-        options={{
-          title: 'Recipes',
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="food-apple-outline" size={24} color={Colors[colorScheme ?? 'light'].tint}/>,
+    <RecipesProvider>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+          // Disable the static render of the header on web
+          // to prevent a hydration error in React Navigation v6.
+          headerShown: useClientOnlyValue(false, true),
+        }}>
+        <Tabs.Screen
+          name="recipes"
+          options={{
+            title: 'Recipes',
+            tabBarIcon: ({ color }) => <MaterialCommunityIcons name="food-apple-outline" size={24} color={Colors[colorScheme ?? 'light'].tint}/>,
         }}
       />
       <Tabs.Screen
@@ -64,5 +66,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </RecipesProvider>
   );
 }
