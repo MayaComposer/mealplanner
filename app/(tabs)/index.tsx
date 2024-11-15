@@ -3,8 +3,11 @@ import { StyleSheet, Button, FlatList } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import { DATA, RecipeEntry } from '../data';
 
+let nextId = 11;
+
 const shuffleArray = (array: RecipeEntry[]) => {
-  return array.sort(() => Math.random() - 0.5);
+  const newArray = array.sort(() => Math.random() - 0.5);
+  return newArray
 };
 
 const Item = ({ data }: { data: RecipeEntry }) => (
@@ -13,13 +16,39 @@ const Item = ({ data }: { data: RecipeEntry }) => (
   </View>
 );
 
-export default function TabTwoScreen() {
-  const [mealPlan, setMealPlan] = useState<RecipeEntry[]>([]);
 
-  const GenerateNewMeal = () => {
-    const shuffledData = shuffleArray([...DATA]);
+
+export default function TabTwoScreen() {
+
+  const RECIPE_DATA = DATA;
+
+  //set state variables
+  const [mealPlan, setMealPlan] = useState<RecipeEntry[]>([]);
+  const [recipeData, setRecipeData] = useState<RecipeEntry[]>(RECIPE_DATA);
+
+  
+  //create a new meal plan that is displayed
+  const GenerateNewMealPlan = () => {
+    //this should insteade create a new array based on data and filter it based on parameters
+    // so a mealplan is created with varied recipes
+    const shuffledData = shuffleArray([...recipeData]);
     const newMealPlan = shuffledData.slice(0, 7);
     setMealPlan(newMealPlan);
+  };
+
+  const AddNewRecipe = () => {
+    //add a recipe to the recipes array
+    console.log("new recipe");
+    let nextIdPlus = nextId++;
+    let nextIdString = nextIdPlus.toString();
+    const newRecipeData = [...recipeData, { id: nextIdString, name: 'sdfsdf', instructions: 'dosmth' }];
+
+    setRecipeData(newRecipeData);
+  };
+
+  const AddNewIngredient = () => {
+    console.log("new ingredient");
+
   };
 
   return (
@@ -30,7 +59,9 @@ export default function TabTwoScreen() {
       <Text style={styles.title}>This is the meal plan for this week</Text>
       <View style={styles.separator} />
       
-      <Button title="New meal plan" onPress={GenerateNewMeal} />
+      <Button title="New meal plan" onPress={GenerateNewMealPlan} />
+      <Button title="Add recipe" onPress={AddNewRecipe} />
+      <Button title="Add ingrdient" onPress={AddNewIngredient} />
       <View style={styles.separator} />
       <FlatList
         data={mealPlan}
